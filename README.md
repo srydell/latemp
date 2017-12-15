@@ -31,13 +31,30 @@ You may now test it simply by typing
 $ latemp
 ```
 
-to find out what your current templates are. These can then be accessed by typing
+to find out what your current templates are.
+
+### Usage
+
+The templates can be accessed by typing
 
 ```
 $ latemp templateName
 ```
 
 this will open your editor and pdfviewer depending on which system you are on.
+
+
+### Adding new templates
+
+You can look at my templates in [latextemplates](https://github.com/srydell/latextemplates).
+
+You should have a folder in your ~/Documents called latextemplates. There you can add any newTemplateName.tex file that then can automatically be used with latemp as.
+
+```
+$ latemp newTemplateName
+```
+
+If you also add a newTemplateName.pdf, the pdfviewer will automatically open this when using latemp in your terminal.
 
 Good luck!
 

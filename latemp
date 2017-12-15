@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+# This is the directory in which to store the template files
+# CHANGE THIS IS YOU WANT ANOTHER DIRECTORY FOR YOUR TEMPLATES
+templateDirectory=~/latextemplates
+
+# Declare program to open in Mac/Linux
+# CHANGE THESE IF YOU WANT TO USE A DIFFERENT EDITOR/PDFVIEWER
+macEditor="texpad"
+linuxEditor="vim"
+linuxPdfViewer="mupdf"
+
+# This will store all the files in a dictionary with template name as key
+# and path to corresponding template as value
+declare -A templates
+
+# Populate template dictionary
+for filePath in $templateDirectory/*.tex;
+do
+	# Strip the file extension
+	pathToBase=${filePath%.tex}
+
+	# Name of the whole file, ##*/ removes everything up to the last /
+	name=${filePath##*/}
+	# Removes the trailing .tex
+	base=${name%.tex}
+
+	# Save file path with the key of template name
+	templates["${base}"]="$pathToBase"
+done
+
+function printOptions {
+	echo "--- Example usage ---"
+	echo
+	echo "  - Open a copy of templateName in your current directory - "
+	echo "	\$ latemp templateName"
+	echo
+	echo "---------------------"
+	echo "--- Available templates ---"
+	echo
+	for template in "${!templates[@]}"; do echo "$template, - File location: ${templates["$template"]}.tex"; done
+	echo "---------------------"
+	echo
+	echo "--- Current settings ---"
+	echo
+	echo "Linux editor: $linuxEditor"
+	echo "Linux pdf viewer: $linuxPdfViewer"
+	echo
+	echo "Mac editor: $macEditor"
+	echo
+	echo "Directory for storing latex templates: $templateDirectory"
+	echo
+	echo "Change these by editing the latemp source file"
+	echo
+	exit 0
+}
+
+# If no input, print options
+if [ $# == 0 ]; then
+	printOptions
+fi
+
+# Check if input is an available template
+if [ "${templates["$1"]}" ]; then
+	currentDir="$(pwd)"
+
+	pathToBasename=${templates["$1"]}
+
+	# Copy template to the current directory
+	# If there is an already compiled pdf, copy that aswell
+	# This only helps with an overview of the template
+	if [ -f $pathToBasename.pdf ]; then
+		cp $pathToBasename.* "$currentDir/"
+	else
+		cp $pathToBasename.tex "$currentDir/$1.tex"
+	fi
+
+	# Check if Mac or Linux and open appropriate editor
+	if [ "$(uname)" == "Darwin" ]; then
+		echo "--- Opening $macEditor ---"
+		open -a $macEditor $currentDir/$1.tex
+	elif [ "$(uname)" == "Linux" ]; then
+		echo "--- Opening $linuxEditor ---"
+		# Opens $linuxPdfViewer if a pdf exists
+		if [ -f $pathToBasename.pdf ]; then
+			$linuxPdfViewer $currentDir/$1.pdf &
+		fi
+
+		# Open $linuxEditor with output to current tty and input from current tty
+		# This expects $linuxEditor to be a terminalbased editor such as vim, emacs or nano
+		$linuxEditor $currentDir/$1.tex < `tty` > `tty`
+	fi
+else
+	echo "Input didn't correspond to any available templates"
+	echo "You might not have a ~/latextemplates folder"
+	echo "Or you might not have that template in the  ~/latextemplates folder"
+	echo
+	printOptions
+fi

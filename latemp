@@ -2,7 +2,7 @@
 
 # This is the directory in which to store the template files
 # CHANGE THIS IS YOU WANT ANOTHER DIRECTORY FOR YOUR TEMPLATES
-templateDirectory=~/latextemplates
+templateDirectory=~/Documents/latextemplates
 
 # Declare program to open in Mac/Linux
 # CHANGE THESE IF YOU WANT TO USE A DIFFERENT EDITOR/PDFVIEWER

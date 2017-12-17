@@ -17,7 +17,9 @@ $ git clone https://github.com/srydell/latemp.git
 $ cd latemp
 ```
 
-Change the default editor and pdfviewer. The default on GNU/Linux is vim and mupdf. On Mac it is texpad. This can be done by changing the first lines in the latemp file. Note that latemp assumes that the GNU/Linux editor is terminal based, and the Mac editor is in your applications folder. The default folder for the latex templates is ~/Documents/latextemplates but can easily be changed.
+Change the default editor and pdfviewer. This can be done by changing the first lines in the latemp file. The default is [vim](http://www.vim.org) with [mupdf](https://www.mupdf.com). If a GUI application is chosen, latemp will ignore the pdfviewer and assume some sort of viewer is built in.
+
+You may also change the folder where latemp will search for latex templates. The default folder is ~/Documents/latextemplates.
 
 Then you may install latemp. This will copy the latemp file to your /usr/local/bin/ folder so that it is in your PATH variable by default.
 
@@ -41,20 +43,20 @@ The templates can be accessed by typing
 $ latemp templateName
 ```
 
-this will open your editor and pdfviewer depending on which system you are on.
+This will copy the files corresponding to that templateName into your current working directory and open your editor and pdfviewer.
 
 
 ### Adding new templates
 
 You can look at some example templates in [latextemplates](https://github.com/srydell/latextemplates).
 
-You should have a folder in your ~/Documents called latextemplates. There you can add any newTemplateName.tex file that then can automatically be used with latemp by typing
+In your folder containing templates you can add any newTemplateName.tex file that then will automatically be used by latemp when typing
 
 ```
 $ latemp newTemplateName
 ```
 
-If you also add a newTemplateName.pdf, the pdfviewer will automatically open this when using latemp in your terminal.
+If you also add a newTemplateName.pdf, the pdfviewer will automatically open it.
 
 Good luck!
 

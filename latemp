@@ -4,11 +4,18 @@
 # CHANGE THIS IS YOU WANT ANOTHER DIRECTORY FOR YOUR TEMPLATES
 templateDirectory=~/Documents/latextemplates
 
-# Declare program to open in Mac/Linux
+# Declare program to open
+# If a GUI program such as TeXstudio or Texmaker is chosen, no pdfviewer will be opened since they are build in
 # CHANGE THESE IF YOU WANT TO USE A DIFFERENT EDITOR/PDFVIEWER
-macEditor="texpad"
-linuxEditor="vim"
-linuxPdfViewer="mupdf"
+editor="vim"
+pdfViewer="mupdf"
+
+# Check if the $editor is terminalbased.
+# If you have a terminalbased editor not on the list, just add it.
+case $editor in
+	vim|emacs|nano) terminalBasedEditor=1 ;;
+	*) terminalBasedEditor=0 ;;
+esac
 
 n=0
 # Populate template dictionary
@@ -51,10 +58,10 @@ function printOptions {
 	echo
 	echo "--- Current settings ---"
 	echo
-	echo "Linux editor: $linuxEditor"
-	echo "Linux pdf viewer: $linuxPdfViewer"
+	echo "Linux editor: $editor"
+	echo "Linux pdf viewer: $pdfViewer"
 	echo
-	echo "Mac editor: $macEditor"
+	echo "Mac editor: $editor"
 	echo
 	echo "Directory for storing latex templates: $templateDirectory"
 	echo
@@ -89,23 +96,38 @@ if [ $templateAvailable ]; then
 
 	# Check if Mac or Linux and open appropriate editor
 	if [ "$(uname)" == "Darwin" ]; then
-		echo "--- Opening $macEditor ---"
-		open -a $macEditor $currentDir/$1.tex
-	elif [ "$(uname)" == "Linux" ]; then
-		echo "--- Opening $linuxEditor ---"
-		# Opens $linuxPdfViewer if a pdf exists
-		if [ -f $pathToBasename.pdf ]; then
-			$linuxPdfViewer $currentDir/$1.pdf &
+		echo "--- Opening $editor ---"
+
+		# Opens $pdfViewer if a pdf exists
+		if [ -f $currentDir/$1.pdf ]; then
+			$pdfViewer $currentDir/$1.pdf &
 		fi
 
-		# Open $linuxEditor with output to current tty and input from current tty
-		# This expects $linuxEditor to be a terminalbased editor such as vim, emacs or nano
-		$linuxEditor $currentDir/$1.tex < `tty` > `tty`
+		if [ $terminalBasedEditor ]; then
+			# Open $editor with output to current tty and input from current tty
+			$editor $currentDir/$1.tex < `tty` > `tty`
+		else
+			# Open $editor from the Applications folder on mac
+			open -a $editor $currentDir/$1.tex
+		fi
+	elif [ "$(uname)" == "Linux" ]; then
+		echo "--- Opening $editor ---"
+		# Opens $pdfViewer if a pdf exists
+		if [ -f $currentDir/$1.pdf ]; then
+			$pdfViewer $currentDir/$1.pdf &
+		fi
+
+		if [ $terminalBasedEditor ]; then
+			# Open $editor with output to current tty and input from current tty
+			$editor $currentDir/$1.tex < `tty` > `tty`
+		else
+			$editor $currentDir/$1.tex
+		fi
 	fi
-# else
-	# echo "Input didn't correspond to any available templates"
-	# echo "You might not have a ~/latextemplates folder"
-	# echo "Or you might not have that template in the  ~/latextemplates folder"
-	# echo
-	# printOptions
+else
+	echo "Input didn't correspond to any available templates"
+	echo "You might not have a ~/latextemplates folder"
+	echo "Or you might not have that template in the  ~/latextemplates folder"
+	echo
+	printOptions
 fi

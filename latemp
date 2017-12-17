@@ -10,10 +10,7 @@ macEditor="texpad"
 linuxEditor="vim"
 linuxPdfViewer="mupdf"
 
-# This will store all the files in a dictionary with template name as key
-# and path to corresponding template as value
-declare -A templates
-
+n=0
 # Populate template dictionary
 for filePath in $templateDirectory/*.tex;
 do
@@ -26,7 +23,15 @@ do
 	base=${name%.tex}
 
 	# Save file path with the key of template name
-	templates["${base}"]="$pathToBase"
+	# If on old bash, make a normal array to where separation between key and value will be ::
+	templateBase[$n]=$base
+	templatePathToBase[$n]=$pathToBase
+
+	# If value entered was found, remember which template
+	if  [ $1 == ${base} ]; then
+		indexOfTemplate=$n
+	fi
+	n=$((n+1))
 done
 
 function printOptions {
@@ -35,11 +40,14 @@ function printOptions {
 	echo "  - Open a copy of templateName in your current directory - "
 	echo "	\$ latemp templateName"
 	echo
-	echo "---------------------"
 	echo "--- Available templates ---"
 	echo
-	for template in "${!templates[@]}"; do echo "$template, - File location: ${templates["$template"]}.tex"; done
-	echo "---------------------"
+	# Extract available templates and their file location
+	N=${#templateBase[@]}
+	for n in $(seq 0 $((N-1)));
+	do
+		echo "${templateBase[n]}, - File location: ${templatePathToBase[n]}.tex"
+	done
 	echo
 	echo "--- Current settings ---"
 	echo
@@ -60,11 +68,15 @@ if [ $# == 0 ]; then
 	printOptions
 fi
 
+
+# If templateBase contains the given template, set templateAvailable=1, else 0
+[[ " ${templateBase[@]} " =~ " $1 " ]] && templateAvailable=1 || templateAvailable=0
+
 # Check if input is an available template
-if [ "${templates["$1"]}" ]; then
+if [ $templateAvailable ]; then
 	currentDir="$(pwd)"
 
-	pathToBasename=${templates["$1"]}
+	pathToBasename=${templatePathToBase[$indexOfTemplate]}
 
 	# Copy template to the current directory
 	# If there is an already compiled pdf, copy that aswell
@@ -90,10 +102,10 @@ if [ "${templates["$1"]}" ]; then
 		# This expects $linuxEditor to be a terminalbased editor such as vim, emacs or nano
 		$linuxEditor $currentDir/$1.tex < `tty` > `tty`
 	fi
-else
-	echo "Input didn't correspond to any available templates"
-	echo "You might not have a ~/latextemplates folder"
-	echo "Or you might not have that template in the  ~/latextemplates folder"
-	echo
-	printOptions
+# else
+	# echo "Input didn't correspond to any available templates"
+	# echo "You might not have a ~/latextemplates folder"
+	# echo "Or you might not have that template in the  ~/latextemplates folder"
+	# echo
+	# printOptions
 fi

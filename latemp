@@ -45,8 +45,8 @@ done
 function printOptions {
 	echo "--- Example usage ---"
 	echo
-	echo "  - Open a copy of templateName in your current directory - "
-	echo "	\$ latemp templateName"
+	echo "  - Open a copy of templateName called newProject.tex/pdf in your current directory - "
+	echo "	\$ latemp templateName newProject"
 	echo
 	echo "--- Available templates ---"
 	echo

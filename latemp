@@ -90,7 +90,7 @@ if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
 
 	# Check if Mac or Linux
 	if [ "$(uname)" == "Darwin" ]; then
-		if [ $terminalBasedEditor ]; then
+		if [ $terminalBasedEditor == 1 ]; then
 			# Opens $pdfViewer if a pdf exists
 			if [ -f $currentDir/$2.pdf ]; then
 				$pdfViewer $currentDir/$2.pdf &
@@ -103,7 +103,7 @@ if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
 			open -a $editor $currentDir/$2.tex
 		fi
 	elif [ "$(uname)" == "Linux" ]; then
-		if [ $terminalBasedEditor ]; then
+		if [ $terminalBasedEditor == 1 ]; then
 			# Opens $pdfViewer if a pdf exists
 			if [ -f $currentDir/$2.pdf ]; then
 				$pdfViewer $currentDir/$2.pdf &

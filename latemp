@@ -74,45 +74,43 @@ fi
 
 # Check if input is an available template
 if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
-	currentDir="$(pwd)"
-
 	pathToBasename=${templatePathToBase[$indexOfTemplate]}
 
 	# Copy template to the current directory
 	# If there is an already compiled pdf, copy that aswell
 	# This only helps with an overview of the template
 	if [ -f $pathToBasename.pdf ]; then
-		cp $pathToBasename.tex "$currentDir/$2.tex"
-		cp $pathToBasename.pdf "$currentDir/$2.pdf"
+		cp $pathToBasename.tex "./$2.tex"
+		cp $pathToBasename.pdf "./$2.pdf"
 	else
-		cp $pathToBasename.tex "$currentDir/$2.tex"
+		cp $pathToBasename.tex "./$2.tex"
 	fi
 
 	# Check if Mac or Linux
 	if [ "$(uname)" == "Darwin" ]; then
 		if [ $terminalBasedEditor == 1 ]; then
 			# Opens $pdfViewer if a pdf exists
-			if [ -f $currentDir/$2.pdf ]; then
-				$pdfViewer $currentDir/$2.pdf &
+			if [ -f ./$2.pdf ]; then
+				$pdfViewer ./$2.pdf &
 			fi
 
 			# Open $editor with input and output from/to current tty
-			$editor $currentDir/$2.tex < `tty` > `tty`
+			$editor ./$2.tex < `tty` > `tty`
 		else
 			# Open $editor from the Applications folder on mac
-			open -a $editor $currentDir/$2.tex
+			open -a $editor ./$2.tex
 		fi
 	elif [ "$(uname)" == "Linux" ]; then
 		if [ $terminalBasedEditor == 1 ]; then
 			# Opens $pdfViewer if a pdf exists
-			if [ -f $currentDir/$2.pdf ]; then
-				$pdfViewer $currentDir/$2.pdf &
+			if [ -f ./$2.pdf ]; then
+				$pdfViewer ./$2.pdf &
 			fi
 
 			# Open $editor with output to current tty and input from current tty
-			$editor $currentDir/$2.tex < `tty` > `tty`
+			$editor ./$2.tex < `tty` > `tty`
 		else
-			$editor $currentDir/$2.tex
+			$editor ./$2.tex
 		fi
 	fi
 else

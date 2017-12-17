@@ -17,6 +17,12 @@ case $editor in
 	*) terminalBasedEditor=0 ;;
 esac
 
+# Check so that there is only two inputs
+# One for the template used, and one for the new name of the file
+if [[ $# -lt 2 || $# -gt 2 ]]; then
+	printOptions
+fi
+
 # Populate template dictionary
 n=0
 for filePath in $templateDirectory/*.tex;
@@ -65,12 +71,6 @@ function printOptions {
 	echo "Latex templates directory: $templateDirectory"
 	exit 0
 }
-
-# Check so that there is only two inputs
-# One for the template used, and one for the new name of the file
-if [[ $# -lt 2 || $# -gt 2 ]]; then
-	printOptions
-fi
 
 # Check if input is an available template
 if [[ " ${templateBase[@]} " =~ " $1 " ]]; then

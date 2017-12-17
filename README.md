@@ -40,10 +40,10 @@ to find out what your current templates are.
 The templates can be accessed by typing
 
 ```
-$ latemp templateName
+$ latemp templateName newProject
 ```
 
-This will copy the files corresponding to that templateName into your current working directory and open your editor and pdfviewer.
+This will copy the files corresponding to that templateName into your current working directory, rename them to newProject.tex/pdf, and open these files with your editor and pdfviewer.
 
 
 ### Adding new templates
@@ -53,7 +53,7 @@ You can look at some example templates in [latextemplates](https://github.com/sr
 In your folder containing templates you can add any newTemplateName.tex file that then will automatically be used by latemp when typing
 
 ```
-$ latemp newTemplateName
+$ latemp newTemplateName newProject
 ```
 
 If you also add a newTemplateName.pdf, the pdfviewer will automatically open it.

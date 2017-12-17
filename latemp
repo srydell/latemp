@@ -68,7 +68,7 @@ function printOptions {
 
 # Check so that there is only two inputs
 # One for the template used, and one for the new name of the file
-if [[ $# -lt 2 || $# -gt 3 ]]; then
+if [[ $# -lt 2 || $# -gt 2 ]]; then
 	printOptions
 fi
 

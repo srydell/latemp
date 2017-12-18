@@ -60,6 +60,29 @@ If you also add a newTemplateName.pdf, the pdfviewer will automatically open it.
 
 Good luck!
 
+## Troubleshooting
+
+### I'm using Mac and I get this error when running git/make.
+
+```
+$ xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
+```
+
+You need to install Xcode to be able to use developer tools such as git/make. You can do this by typing
+
+```
+$ xcode-select --install
+```
+
+Or you may install latemp manually by downloading it, unzipping and, while in the latemp folder, typing
+
+```
+$ chmod +x ./install.sh
+$ ./install.sh
+```
+
+which should install the same way as typing make.
+
 ## Contributing
 
 You are free to do with these files as you wish. If you make improvements along the way, please do a pull request to let me benefit from them aswell!

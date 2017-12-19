@@ -8,7 +8,7 @@ templateDirectory=~/Documents/latextemplates
 # If a GUI program such as TeXstudio or Texmaker is chosen, no pdfviewer will be opened since they are build in
 # CHANGE THESE IF YOU WANT TO USE A DIFFERENT EDITOR/PDFVIEWER
 editor="vim"
-pdfViewer="mupdf"
+pdfViewer="mupdf-gl"
 
 # Check if the $editor is terminalbased.
 # If you have a terminalbased editor not on the list, just add it.
@@ -17,23 +17,17 @@ case $editor in
 	*) terminalBasedEditor=0 ;;
 esac
 
-# Check so that there is only two inputs
-# One for the template used, and one for the new name of the file
-if [[ $# -lt 2 || $# -gt 2 ]]; then
-	printOptions
-fi
-
 # Populate template dictionary
 n=0
-# nofiles need to be a global variable
-# This is 1 if there are no files in the latex template directory
-nofiles=0
 for filePath in $templateDirectory/*.tex;
 do
-	if [ ! -f $filepath ]; then
-		nofiles=1
-		break
-	fi
+	# Check if template directory exists
+	[ -d "$templateDirectory" ] && nodirectory=false || nodirectory=true
+
+	## Check if the glob gets expanded to existing files.
+	## If not, filepath will be exactly the pattern above
+	## and the exists test will evaluate to false.
+	[ -e "$filePath" ] && nofiles=false || nofiles=true
 
 	# Strip the file extension
 	pathToBase=${filePath%.tex}
@@ -57,32 +51,37 @@ do
 done
 
 function printOptions {
-	echo "--- Example usage ---"
-	echo
-	echo "  - Open a copy of templateName called newProject.tex/pdf in your current directory - "
-	echo "	\$ latemp templateName newProject"
-	echo
-	echo "--- Available templates ---"
-	echo
-	# Extract available templates and their file location
-	if [[ $nofiles == 0 ]]; then
-		N=${#templateBase[@]}
-		for n in $(seq 0 $((N-1)));
-		do
-			echo "${templateBase[n]}, - File location: ${templatePathToBase[n]}.tex"
-		done
-	else
-		echo "No template files were found in $templateDirectory"
-	fi
-	echo
 	echo "--- Current settings ---"
 	echo
 	echo "Editor: $editor"
 	echo "Pdf viewer: $pdfViewer"
 	echo
-	echo "Latex templates directory: $templateDirectory"
+	echo "--- Available templates ---"
+	echo
+	if [ "$nodirectory" = false ]; then
+		# Extract available templates and their file location
+		if [ "$nofiles" = false ]; then
+			N=${#templateBase[@]}
+			for n in $(seq 0 $((N-1)));
+			do
+				echo "${templateBase[n]}, - File location: ${templatePathToBase[n]}.tex"
+			done
+		else
+			echo "No template files were found in $templateDirectory"
+		fi
+	else
+		echo "No template directory found. Looked in $templateDirectory"
+	fi
+	echo
 	exit 0
 }
+
+# Check so that there is only two inputs
+# One for the template used, and one for the new name of the file
+# Cannot be moved earlier since printOptions need the info about the template directory
+if [[ $# -lt 2 || $# -gt 2 ]]; then
+	printOptions
+fi
 
 # Check if input is an available template
 if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
@@ -100,7 +99,7 @@ if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
 
 	# Check if Mac or Linux
 	if [ "$(uname)" == "Darwin" ]; then
-		if [ $terminalBasedEditor == 1 ]; then
+		if [ "$terminalBasedEditor" == 1 ]; then
 			# Opens $pdfViewer if a pdf exists
 			if [ -f ./$2.pdf ]; then
 				$pdfViewer ./$2.pdf &
@@ -127,8 +126,6 @@ if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
 	fi
 else
 	echo "Input didn't correspond to any available templates"
-	echo "You might not have a ~/latextemplates folder"
-	echo "Or you might not have $1.tex in the  ~/latextemplates folder"
 	echo
 	printOptions
 fi

@@ -61,9 +61,8 @@ function printOptions {
 	if [ "$nodirectory" = false ]; then
 		# Extract available templates and their file location
 		if [ "$nofiles" = false ]; then
-			N=${#templateBase[@]}
-			for n in $(seq 0 $((N-1)));
-			do
+			# Iterate over templates and find their corresponding file path
+			for ((n=0; $n < ${#templateBase[@]}; n++)); do
 				echo "${templateBase[n]}, - File location: ${templatePathToBase[n]}.tex"
 			done
 		else

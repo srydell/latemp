@@ -4,5 +4,5 @@
 # December 2017
 #
 install:
-	chmod +x ./install.sh;
-	./install.sh
+	@chmod +x ./install.sh;
+	@./install.sh

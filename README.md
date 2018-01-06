@@ -21,6 +21,8 @@ Change the default directory where latemp searches for templates, the editor, an
 
 If a GUI application is chosen as editor, latemp will ignore the pdf viewer and assume some sort of viewer is built in.
 
+Latemp will try to launch your programs via the terminal and it is therefore required for programs to either be in your PATH or for Mac users, to be in your Applications folder
+
 Installing latemp will copy the program file to your /usr/local/bin/ folder so that it is in your PATH variable by default. Installing is as easy as running:
 
 ```

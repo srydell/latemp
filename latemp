@@ -84,8 +84,13 @@ if [ $# -lt 2 ] || [ $# -gt 2 ]; then
 	printOptions
 fi
 
-# Check if input is an available template
-if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
+# Check if any templates where found.
+# If they were, then $indexOfTemplate is defined
+if [ -z ${indexOfTemplate:+x} ]; then
+	echo "Input didn't correspond to any available templates"
+	echo
+	printOptions
+else
 	pathToBasename=${templatePathToBase[$indexOfTemplate]}
 
 	# Copy template to the current directory
@@ -125,8 +130,4 @@ if [[ " ${templateBase[@]} " =~ " $1 " ]]; then
 			$editor ./$2.tex
 		fi
 	fi
-else
-	echo "Input didn't correspond to any available templates"
-	echo
-	printOptions
 fi

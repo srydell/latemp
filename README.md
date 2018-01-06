@@ -17,11 +17,11 @@ $ git clone https://github.com/srydell/latemp.git
 $ cd latemp
 ```
 
-Change the default editor and pdfviewer. This can be done by changing the first lines in the latemp file. The default is [vim](http://www.vim.org) with [mupdf](https://www.mupdf.com). If a GUI application is chosen, latemp will ignore the pdfviewer and assume some sort of viewer is built in.
+Change the default directory where latemp searches for templates, the editor, and the pdf viewer. This can be done by editing the file "config". After installation this file will be in your home folder under the name ".latemprc" so that you can change any config at any time.
 
-You may also change the folder where latemp will search for latex templates. The default folder is ~/Documents/latextemplates.
+If a GUI application is chosen as editor, latemp will ignore the pdf viewer and assume some sort of viewer is built in.
 
-Then you may install latemp. This will copy the latemp file to your /usr/local/bin/ folder so that it is in your PATH variable by default.
+Installing latemp will copy the program file to your /usr/local/bin/ folder so that it is in your PATH variable by default. Installing is as easy as running:
 
 ```
 $ make

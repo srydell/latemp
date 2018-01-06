@@ -9,5 +9,6 @@ echo "Installing latemp in your /usr/local/bin/ folder..."
 chmod +x ./latemp;
 echo "I highly recommend reading through the script before installing it"
 sudo cp ./latemp /usr/local/bin/
+cp ./config $HOME/.latemprc
 echo "---------------------------------------------------"
 echo "-You can now use it by typing latemp in your shell-"

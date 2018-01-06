@@ -80,7 +80,7 @@ function printOptions {
 # Check so that there is only two inputs
 # One for the template used, and one for the new name of the file
 # Cannot be moved earlier since printOptions need the info about the template directory
-if [[ $# -lt 2 || $# -gt 2 ]]; then
+if [ $# -lt 2 ] || [ $# -gt 2 ]; then
 	printOptions
 fi
 

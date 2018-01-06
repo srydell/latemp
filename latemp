@@ -22,12 +22,14 @@ n=0
 for filePath in $templateDirectory/*.tex;
 do
 	# Check if template directory exists
-	[ -d "$templateDirectory" ] && nodirectory=false || nodirectory=true
+	# If not found, break
+	[ -d "$templateDirectory" ] && nodirectory=false || (nodirectory=true; break;)
 
-	## Check if the glob gets expanded to existing files.
-	## If not, filepath will be exactly the pattern above
-	## and the exists test will evaluate to false.
-	[ -e "$filePath" ] && nofiles=false || nofiles=true
+	# Check if the glob gets expanded to existing files.
+	# If not, filepath will be exactly the pattern above
+	# and the exists test will evaluate to false.
+	# If not found, break
+	[ -e "$filePath" ] && nofiles=false || (nofiles=true; break;)
 
 	# Strip the file extension
 	pathToBase=${filePath%.tex}
@@ -44,7 +46,7 @@ do
 
 	# If value entered was found, remember which template
 	# If no value was entered, this is always false
-	if  [[ $1 == ${base} ]]; then
+	if  [ "$1" = "${base}" ]; then
 		indexOfTemplate=$n
 	fi
 	n=$((n+1))

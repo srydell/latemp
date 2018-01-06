@@ -34,13 +34,13 @@ for filePath in $templateDirectory/*.tex;
 do
 	# Check if template directory exists
 	# If not found, break
-	[ -d "$templateDirectory" ] && nodirectory=false || (nodirectory=true; break;)
+	[ -d "$templateDirectory" ] && noDirectory=false || (noDirectory=true; break;)
 
 	# Check if the glob gets expanded to existing files.
 	# If not, filepath will be exactly the pattern above
 	# and the exists test will evaluate to false.
 	# If not found, break
-	[ -e "$filePath" ] && nofiles=false || (nofiles=true; break;)
+	[ -e "$filePath" ] && noFiles=false || (noFiles=true; break;)
 
 	# Strip the file extension
 	pathToBase=${filePath%.tex}
@@ -71,9 +71,9 @@ function printOptions {
 	echo
 	echo "--- Available templates ---"
 	echo
-	if [ "$nodirectory" = false ]; then
+	if [ "$noDirectory" = false ]; then
 		# Extract available templates and their file location
-		if [ "$nofiles" = false ]; then
+		if [ "$noFiles" = false ]; then
 			# Iterate over templates and find their corresponding file path
 			for ((n=0; $n < ${#templateBase[@]}; n++)); do
 				echo "${templateBase[n]}, - File location: ${templatePathToBase[n]}.tex"

@@ -12,7 +12,7 @@ Latemp uses a makefile to help you with the installation. It should work on any 
 
 Clone the repository and cd in
 
-```
+```shell
 $ git clone https://github.com/srydell/latemp.git
 $ cd latemp
 ```
@@ -25,13 +25,13 @@ Latemp will try to launch your programs via the terminal and it is therefore req
 
 Installing latemp will copy the program file to your /usr/local/bin/ folder so that it is in your PATH variable by default. Installing is as easy as running:
 
-```
+```shell
 $ make
 ```
 
 You may now test it simply by typing
 
-```
+```shell
 $ latemp
 ```
 
@@ -41,7 +41,7 @@ to find out what your current templates are.
 
 The templates can be accessed by typing
 
-```
+```shell
 $ latemp templateName newProject
 ```
 
@@ -54,7 +54,7 @@ You can look at some example templates in [latextemplates](https://github.com/sr
 
 In your folder containing templates you can add any newTemplateName.tex file that then will automatically be used by latemp when typing
 
-```
+```shell
 $ latemp newTemplateName newProject
 ```
 
@@ -66,19 +66,19 @@ Good luck!
 
 ### I'm using Mac and I get this error when running git/make.
 
-```
+```shell
 $ xcrun: error: invalid active developer path (/Library/Developer/CommandLineTools), missing xcrun at: /Library/Developer/CommandLineTools/usr/bin/xcrun
 ```
 
 You need to install Xcode to be able to use developer tools such as git/make. You can do this by typing
 
-```
+```shell
 $ xcode-select --install
 ```
 
 Or you may install latemp manually by downloading it, unzipping and, while in the latemp folder, typing
 
-```
+```shell
 $ chmod +x ./install.sh
 $ ./install.sh
 ```

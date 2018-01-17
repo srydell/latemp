@@ -8,7 +8,7 @@ CLI tool to easily organize and reuse latex templates
 
 Latemp uses a makefile to help you with the installation. It should work on any GNU/Linux or Mac without any dependencies.
 
-### Installing
+### Getting latemp
 
 Clone the repository and cd in
 
@@ -17,11 +17,14 @@ $ git clone https://github.com/srydell/latemp.git
 $ cd latemp
 ```
 
-Change the default directory where latemp searches for templates, the editor, and the pdf viewer. This can be done by editing the file "config". After installation this file will be in your home folder under the name ".latemprc" so that you can change any config at any time.
+#### Configuration
+You can change the default directory where latemp searches for templates, the editor, and the pdf viewer. This can be done by editing the file "config". After installation this file will be copied to your home folder under the name ".latemprc" so that you can change any config at any time.
 
 If a GUI application is chosen as editor, latemp will ignore the pdf viewer and assume some sort of viewer is built in.
 
-Latemp will try to launch your programs via the terminal and it is therefore required for programs to either be in your PATH or for Mac users, to be in your Applications folder
+Latemp will try to launch your programs via the terminal and it is therefore required for programs to either be in your PATH or for Mac users, to be in your Applications folder.
+
+#### Installing
 
 Installing latemp will copy the program file to your /usr/local/bin/ folder so that it is in your PATH variable by default. Installing is as easy as running:
 
@@ -29,23 +32,20 @@ Installing latemp will copy the program file to your /usr/local/bin/ folder so t
 $ make
 ```
 
-You may now test it simply by typing
+### Usage
+
+You may display current settings and get a list of templates by typing
 
 ```shell
 $ latemp
 ```
-
-to find out what your current templates are.
-
-### Usage
-
 The templates can be accessed by typing
 
 ```shell
 $ latemp templateName newProject
 ```
 
-This will copy the files corresponding to that templateName into your current working directory, rename them to newProject.tex/pdf, and open these files with your editor and pdfviewer.
+This will copy the files templateName.tex and templateName.pdf (if it exists) from your template directory into your current working directory, rename them to newProject.tex/pdf, and open these files with your editor and pdfviewer.
 
 
 ### Adding new templates

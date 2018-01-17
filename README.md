@@ -26,7 +26,9 @@ Latemp will try to launch your programs via the terminal and it is therefore req
 
 #### Installing
 
-Installing latemp will copy the program file to your /usr/local/bin/ folder so that it is in your PATH variable by default. Installing is as easy as running:
+Installing latemp will copy the program file to your /usr/local/bin/ folder so that it is in your PATH variable by default.
+
+Installing is as easy as running:
 
 ```shell
 $ make

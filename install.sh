@@ -10,7 +10,7 @@ chmod +x ./latemp;
 echo "I highly recommend reading through the script before installing it"
 sudo cp ./latemp /usr/local/bin/
 if [ -f "$HOME/.latemprc" ]; then
-	read -p "Do you want to overwrite your current config file in "$HOME"/.latemprc (y/n)?" choice
+	read -p "Do you want to overwrite your current config file in "$HOME"/.latemprc with ./config (y/n)?" choice
 	case "$choice" in
 		y|Y ) echo "Using new config file." && cp ./config $HOME/.latemprc;;
 		* ) echo "Keeping old config file.";;

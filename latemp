@@ -11,7 +11,16 @@ do
 		''|\#*) continue ;;
 	esac
 	# Strip up to first equal sign
-	configs[$n]="${config#*=}"
+	config="${config#*=}"
+
+	# Remove leading whitespace characters
+	config="${config#"${config%%[![:space:]]*}"}"
+
+	# Remove trailing whitespace characters
+	config="${config%"${config##*[![:space:]]}"}"
+
+	# Add to list of configs
+	configs[$n]="$config"
 	n=$((n+1))
 done < "$configFile"
 
@@ -76,7 +85,7 @@ function printOptions {
 		if [ "$noFiles" = false ]; then
 			# Iterate over templates and find their corresponding file path
 			for ((n=0; $n < ${#templateBase[@]}; n++)); do
-				echo "${templateBase[n]}, - File location: ${templatePathToBase[n]}.tex"
+				echo "${templateBase[n]}, File location: ${templatePathToBase[n]}.tex"
 			done
 		else
 			echo "No template files were found in $templateDirectory"

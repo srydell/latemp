@@ -3,7 +3,7 @@
 #
 # Lines starting with # and empty lines are ignored.
 #
-# Note that both editor and pdfViewer must either be in your PATH or you may list the full path to the program binary.
+# Note that both editor and pdfViewer must either be in your PATH or you may provide the full path to the program binary.
 
 templateDirectory = ~/Documents/latextemplates
 editor = vim

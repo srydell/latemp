@@ -11,7 +11,14 @@ do
 		''|\#*) continue ;;
 	esac
 	# Strip up to first equal sign
-	configs[$n]="${config#*=}"
+	config="${config#*=}"
+
+	# Remove leading whitespace characters
+	config="${config#"${config%%[![:space:]]*}"}"
+	echo $config
+
+	# Add to list of configs
+	configs[$n]="$config"
 	n=$((n+1))
 done < "$configFile"
 

@@ -2,10 +2,9 @@
 # The source code can be found at https://github.com/srydell/latemp
 #
 # Lines starting with # and empty lines are ignored.
-# Everything after the = will be taken as a variable.
-# 
+#
 # Note that both editor and pdfViewer must either be in your PATH or you may list the full path to the program binary.
 
-templateDirectory=~/Documents/latextemplates
-editor=vim
-pdfViewer=mupdf-gl
+templateDirectory = ~/Documents/latextemplates
+editor = vim
+pdfViewer = mupdf-gl

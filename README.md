@@ -17,14 +17,14 @@ $ git clone https://github.com/srydell/latemp.git
 $ cd latemp
 ```
 
-#### Configuration
+### Configuration
 You can change the default directory where latemp searches for templates, the editor, and the pdf viewer. This can be done by editing the file "config". After installation this file will be copied to your home folder under the name ".latemprc" so that you can change any config at any time.
 
 If a GUI application is chosen as editor, latemp will ignore the pdf viewer and assume some sort of viewer is built in.
 
 Latemp will try to launch your programs via the terminal and it is therefore required for programs to either be in your PATH or for Mac users, to be in your Applications folder.
 
-#### Installing
+### Installing
 
 Installing latemp will copy the program file to your /usr/local/bin/ folder so that it is in your PATH variable by default.
 

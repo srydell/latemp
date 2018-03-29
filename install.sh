@@ -1,8 +1,7 @@
 read -p "Do you want to install latemp in your /usr/local/bin/ folder (y/n)?" choice
 case "$choice" in
 	y|Y ) echo "Thank you, if there are any updates you would like, just redownload the content and repeat this process.";;
-	n|N ) echo "Ok, have a nice day." && exit 0;;
-	* ) echo "Invalid input." && exit 0;;
+	* ) echo "Ok, have a nice day." && exit 0;;
 esac
 
 echo "Installing latemp in your /usr/local/bin/ folder..."

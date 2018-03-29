@@ -52,7 +52,11 @@ This will copy the files templateName.tex and templateName.pdf (if it exists) fr
 
 ### Adding new templates
 
-You can look at some example templates in [latextemplates](https://github.com/srydell/latextemplates).
+You can look at some example templates in [latextemplates](https://github.com/srydell/latextemplates). If you do not have any templates in ~/Documents/latextemplates and you want to try out latemp you can get the example templates by typing
+
+```shell
+$ git clone https://github.com/srydell/latemp.git ~/Documents/latextemplates
+```
 
 In your folder containing templates you can add any newTemplateName.tex file that then will automatically be used by latemp when typing
 

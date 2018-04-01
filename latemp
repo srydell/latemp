@@ -73,13 +73,15 @@ do
 done
 
 function printOptions {
-	echo "--- Current settings ---"
-	echo
-	echo "Editor: $editor"
-	echo "Pdf viewer: $pdfViewer"
-	echo
-	echo "--- Available templates ---"
-	echo
+	cat <<- EOF
+		--- Current settings ---
+
+		Editor: $editor
+		Pdf viewer: $pdfViewer
+
+		--- Available templates ---
+
+	EOF
 	if [ "$noDirectory" = false ]; then
 		# Extract available templates and their file location
 		if [ "$noFiles" = false ]; then

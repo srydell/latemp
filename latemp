@@ -113,6 +113,7 @@ if [ -z ${indexOfTemplate:+x} ]; then
 	echo
 	printOptions
 else
+	# There exists an available template so it's safe to access
 	pathToBasename=${templatePathToBase[$indexOfTemplate]}
 
 	# Copy template to the current directory
@@ -126,30 +127,34 @@ else
 	fi
 
 	# Check if Mac or Linux
-	if [ "$(uname)" = "Darwin" ]; then
-		if [ $terminalBasedEditor -eq 1 ]; then
-			# Opens $pdfViewer if a pdf exists
-			if [ -f ./$2.pdf ]; then
-				$pdfViewer ./$2.pdf &
-			fi
+	case "$(uname)" in
+		Darwin)
+			if [ $terminalBasedEditor -eq 1 ]; then
+				# Opens $pdfViewer if a pdf exists
+				if [ -f ./$2.pdf ]; then
+					$pdfViewer ./$2.pdf &
+				fi
 
-			# Open $editor with input and output from/to current tty
-			$editor ./$2.tex < `tty` > `tty`
-		else
-			# Open $editor from the Applications folder on mac
-			open -a $editor ./$2.tex
-		fi
-	elif [ "$(uname)" = "Linux" ]; then
-		if [ $terminalBasedEditor -eq 1 ]; then
-			# Opens $pdfViewer if a pdf exists
-			if [ -f ./$2.pdf ]; then
-				$pdfViewer ./$2.pdf &
+				# Open $editor with input and output from/to current tty
+				$editor ./$2.tex < `tty` > `tty`
+			else
+				# Open $editor from the Applications folder on mac
+				open -a $editor ./$2.tex
 			fi
+			;;
+		Linux)
+			if [ $terminalBasedEditor -eq 1 ]; then
+				# Opens $pdfViewer if a pdf exists
+				if [ -f ./$2.pdf ]; then
+					$pdfViewer ./$2.pdf &
+				fi
 
-			# Open $editor with output to current tty and input from current tty
-			$editor ./$2.tex < `tty` > `tty`
-		else
-			$editor ./$2.tex
-		fi
-	fi
+				# Open $editor with output to current tty and input from current tty
+				$editor ./$2.tex < `tty` > `tty`
+			else
+				$editor ./$2.tex
+			fi
+			;;
+	esac
+
 fi

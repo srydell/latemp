@@ -136,7 +136,7 @@ else
 				fi
 
 				# Open $editor with input and output from/to current tty
-				$editor ./$2.tex < `tty` > `tty`
+				$editor ./$2.tex < $(tty) > $(tty)
 			else
 				# Open $editor from the Applications folder on mac
 				open -a $editor ./$2.tex
@@ -150,7 +150,7 @@ else
 				fi
 
 				# Open $editor with output to current tty and input from current tty
-				$editor ./$2.tex < `tty` > `tty`
+				$editor ./$2.tex < $(tty) > $(tty)
 			else
 				$editor ./$2.tex
 			fi
